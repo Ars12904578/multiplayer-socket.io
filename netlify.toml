@@ -1,6 +1,11 @@
 [build]
   command = "npm start"
-  publish = "public"
+  publish = "/public"
+
+[[redirects]]
+  from = "/*"
+  to = "/public/index.html"
+  status = 200
 
 [[headers]]
   for = "/*"
