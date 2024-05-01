@@ -1,13 +1,13 @@
 {
-  "name": "socketio_multiplayer_wagame",
+  "name": "multiplayer_wargame",
   "version": "1.0.0",
-  "description": "",
+  "description": "war game",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "ABrowse",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
