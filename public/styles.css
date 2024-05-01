@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#chat-container {
+    margin: 20px;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages li {
+    margin-bottom: 10px;
+}
+
+#form input {
+    width: 80%;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+#form button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#draggable {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    cursor: move;
+}
