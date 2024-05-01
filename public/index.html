@@ -9,20 +9,38 @@
 </head>
 <body>
     <div class="container">
-
+        <div class="playerblocker">
+            <div class="playerCount"></div>
+        </div>
         <div id="chat-container">
             <ul id="messages"></ul>
+            <center>
             <form id="form">
                 <input id="input" autocomplete="off">
-                <button>Send</button>
+                <button><i class="fas fa-paper-plane"></i></button>
+            </center>
             </form>
         </div>
-        <button id="addButton">Add</button>
-        <button id="addButton1">Add1</button>
-        <button id="fullscreenButton"><i class="fas fa-expand"></i></button>
-    <!-- <div id="draggable"></div> -->
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="client.js"></script>
+        
+        <center>
+            <div class="controls">
+                <button id="fullscreenButton"><i class="fas fa-expand"></i></button>
+            </div>
+        </center>
+
+    
+    </div><div class="team1">
+
+        <button onclick="addsoldier(1)">Add</button>
+
+    </div><div class="team2">
+
+        <button onclick="addsoldier(2)">Add</button>
+
+    </div><div class="team3">
+
+        <button onclick="addsoldier(3)">Add</button>
+
+    </div><script src="/socket.io/socket.io.js"></script><script src="client.js"></script>
 </body>
 </html>
