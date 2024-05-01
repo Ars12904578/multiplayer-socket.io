@@ -13,6 +13,19 @@ body{
   background-size: cover;
   background-position: center;
 }
+
+button{
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover{
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+}
+
 .container {
     position: relative;
     width: 100%;
@@ -21,23 +34,34 @@ body{
 }
 
 #chat-container {
-    display: none;
-    position: fixed;
-    overflow-y: scroll;
+    /* display: none; */
+    position: absolute;
+    overflow-y: hidden;
+    overflow-x: hidden;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: black;
-    opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.498);
     width: 100%;
     height: 100%;
     z-index: 999;
 }
-
+.close{
+    border-top-left-radius: 0;
+    opacity: 1;
+}
+.close:hover{
+    border-top-left-radius: 0;
+    background-color: red;
+    opacity: 1;
+}
 #messages {
     list-style-type: none;
     margin: 0;
-    padding: 50px;
+    width: 80%;
+    position: absolute;
+    border: 2px solid #007bff;
+    overflow-y: scroll;
 }
 
 #messages li {
@@ -47,10 +71,14 @@ body{
     border-radius: 10px;
     background-color: #007bff;
     width: fit-content;
+    max-width: 250px;
+    overflow-x: visible;
+    word-wrap: break-word; /* For older browsers */
+    overflow-wrap: break-word; /* For newer browsers */
 }
 
 #form{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 0;
     right: 0;
@@ -126,6 +154,18 @@ body{
 .team3{
     bottom: 20px;
     right: 20px;
+}
+.team1 button, .team2 button, .team3 button{
+    color: white;
+}
+.team1 button{
+    background-color: red;
+}
+.team2 button{
+    background-color: #007bff;
+}
+.team3 button{
+    background-color: black;
 }
 .controls{
     position: absolute;

@@ -1,6 +1,5 @@
 const socket = io();
 let username = sessionStorage.getItem("name");
-
 function loop_name() {if (!username) {
 username = prompt('Enter your name:');
 if (username) {socket.emit('player', username);
@@ -47,16 +46,24 @@ document.removeEventListener('touchmove', elementDrag);}}
 // ----
 function addSoldierElement(id, x, y, team) {const newElement = document.createElement('img');newElement.id = id;newElement.classList.add(`draggable${team}`);
     newElement.src = "/Textures/Untitled.png"
-    newElement.style.left = x + 'px';newElement.style.top = y + 'px';document.body.appendChild(newElement);makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{newElement.remove();socket.emit('removeElement', newElement.id);});let touchTimer;newElement.addEventListener('touchstart', function(event) {touchTimer = setTimeout(function() {newElement.remove();socket.emit('removeElement', newElement.id);console.log('Long press');}, 500);});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});
+    // newElement.style.left = x + 'px';newElement.style.top = y + 'px';
+    if (team == 3){
+        newElement.style.right = x + 'px';newElement.style.bottom = y + 'px';
+    }if (team == 2){
+        newElement.style.right = x + 'px';newElement.style.top = y + 'px';
+    }if (team == 1){
+        newElement.style.left = x + 'px';newElement.style.top = y + 'px';
+    }
+    document.body.appendChild(newElement);makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{newElement.remove();socket.emit('removeElement', newElement.id);});let touchTimer;newElement.addEventListener('touchstart', function(event) {touchTimer = setTimeout(function() {newElement.remove();socket.emit('removeElement', newElement.id);console.log('Long press');}, 500);});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});
 };
 function addsoldier(Team) {const id = Date.now().toString(), x = 0, y = 0;
     addSoldierElement(id, x, y, Team)
     socket.emit('newElement', { id, x, y, Team });
 }
+socket.on('newElement', function(data) {const existingElement = document.getElementById(data.id);if(existingElement){}else{
+addSoldierElement(data.id, data.x, data.y, data.Team);}});
 // ----
 
-socket.on('newElement', function(data) {const existingElement = document.getElementById(data.id);if(existingElement){}else{
-addDraggableElement(data.id, data.x, data.y, data.team);}});
 
 socket.on('playersCount', function(data){document.querySelector(".playerCount").innerHTML = "Player Count "+data});
 socket.on('position', function(data) {const element = document.getElementById(data.id);
