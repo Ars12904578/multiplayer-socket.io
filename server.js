@@ -43,5 +43,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+console.log(`Server is running on port ${PORT}`);
+var currentURL = window.location.href;
+console.log("Current URL: " + currentURL);
 });
