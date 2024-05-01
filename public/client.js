@@ -77,47 +77,28 @@ function makeDraggable(element) {
 }
 
 
-function addDraggableElement(id, x, y) {
-    const newElement = document.createElement('div');
-    newElement.id = id;
-    newElement.classList.add('draggable');
-    newElement.style.position = 'absolute';
-    newElement.style.width = '100px';
-    newElement.style.height = '100px';
-    newElement.style.backgroundColor = 'blue';
-    newElement.style.left = x + 'px';
-    newElement.style.top = y + 'px';
-    document.body.appendChild(newElement);
-    makeDraggable(newElement);
-    newElement.addEventListener('dblclick', () =>{
-        newElement.remove();
-        socket.emit('removeElement', newElement.id);
-    });
-let touchTimer;
-newElement.addEventListener('touchstart', function(event) {
-    touchTimer = setTimeout(function() {
-        newElement.remove();
-        socket.emit('removeElement', newElement.id);
-        console.log('Long press detected');
-    }, 1000);
-});
+function addDraggableElement(id, x, y, team) {const newElement = document.createElement('img');
+newElement.id = id;newElement.classList.add(`draggable${team}`);
 
-newElement.addEventListener('touchmove', function(event) {
-    clearTimeout(touchTimer);
-});
+    newElement.src = "/Textures/Untitled.png"
 
-newElement.addEventListener('touchend', function(event) {
-    clearTimeout(touchTimer);
-});
-
-}
+newElement.style.left = x + 'px';newElement.style.top = y + 'px';document.body.appendChild(newElement);
+makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{
+newElement.remove();socket.emit('removeElement', newElement.id);
+});let touchTimer;newElement.addEventListener('touchstart', function(event) {
+touchTimer = setTimeout(function() {newElement.remove();
+socket.emit('removeElement', newElement.id);
+console.log('Long press');}, 500);
+});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);
+});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});}
 
 document.getElementById('addButton').addEventListener('click', function() {
-    const id = Date.now().toString(); // Unique ID for each element
-    const x = Math.random() * (window.innerWidth - 100); // Random X position
-    const y = Math.random() * (window.innerHeight - 100); // Random Y position
-    addDraggableElement(id, x, y);
-    socket.emit('newElement', { id, x, y });
+    const id = Date.now().toString();
+    const x = 0
+    const y = 0
+    const team = 2
+    addDraggableElement(id, x, y, team);
+    socket.emit('newElement', { id, x, y, team });
 });
 
 socket.on('position', function(data) {
@@ -139,7 +120,7 @@ socket.on('newElement', function(data) {
     const existingElement = document.getElementById(data.id);
     if (existingElement) {
     }else{
-        addDraggableElement(data.id, data.x, data.y);
+        addDraggableElement(data.id, data.x, data.y, data.team);
     }
 });
 
