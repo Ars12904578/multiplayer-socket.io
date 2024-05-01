@@ -1,5 +1,6 @@
 [build]
   command = "npm start"
+  publish = "public"
 
 [[headers]]
   for = "/*"
