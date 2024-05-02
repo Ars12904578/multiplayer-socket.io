@@ -4,6 +4,7 @@
     font-family: Poppins;
     border: none;
     outline: none;
+    transition: 0.2s;
 }
 body{
     margin: 0;
@@ -35,8 +36,8 @@ button:hover{
 
 #chat-container {
     /* display: none; */
-    position: absolute;
-    overflow-y: hidden;
+    position: fixed;
+    overflow-y: scroll;
     overflow-x: hidden;
     top: 50%;
     left: 50%;
@@ -44,24 +45,24 @@ button:hover{
     background-color: rgba(0, 0, 0, 0.498);
     width: 100%;
     height: 100%;
-    z-index: 999;
 }
 .close{
-    border-top-left-radius: 0;
+    position: fixed;
+    top: 3px;
+    left: 3px;
     opacity: 1;
 }
 .close:hover{
-    border-top-left-radius: 0;
     background-color: red;
     opacity: 1;
 }
 #messages {
     list-style-type: none;
     margin: 0;
-    width: 80%;
-    position: absolute;
-    border: 2px solid #007bff;
+    width: 100%;
     overflow-y: scroll;
+    height: fit-content;
+    margin-bottom: 40px;
 }
 
 #messages li {
@@ -71,29 +72,24 @@ button:hover{
     border-radius: 10px;
     background-color: #007bff;
     width: fit-content;
-    max-width: 250px;
-    overflow-x: visible;
+    max-width: 80%;
     word-wrap: break-word; /* For older browsers */
     overflow-wrap: break-word; /* For newer browsers */
 }
 
 #form{
     position: fixed;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-}
-
-#form input {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
     width: 80%;
-    padding: 5px 15px;
     border-radius: 10px;
 }
 
-#form button {
-    padding: 5px;
-    cursor: pointer;
-    width: 34px;
+#form input {
+    min-width: 100%;
+    padding: 5px 15px;
     border-radius: 10px;
 }
 
@@ -104,14 +100,16 @@ button:hover{
     border-radius: 5px;
     position: absolute;
     cursor: move;
+    transition: none;
 }
 .draggable2 {
     width: 30px;
     height: 30px;
-    border: 5px solid blue;
+    border: 5px solid #007bff;
     border-radius: 5px;
     position: absolute;
     cursor: move;
+    transition: none;
 }
 .draggable3 {
     width: 30px;
@@ -120,6 +118,7 @@ button:hover{
     border-radius: 5px;
     position: absolute;
     cursor: move;
+    transition: none;
 }
 .playerblocker{
     position: absolute;
@@ -172,4 +171,19 @@ button:hover{
     top: 20px;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+.hidden {
+    display: none;
 }

@@ -10,40 +10,52 @@
 </head>
 <body>
     <div class="container">
-        <div class="playerblocker">
-            <div class="playerCount"></div>
-        </div>
-        <div id="chat-container">
-            <button class="close"><i class="fas fa-times"></i></button>
-            <ul id="messages"></ul>
-            <center>
-            <form id="form">
-                <input id="input" autocomplete="off">
-                <button><i class="fas fa-paper-plane"></i></button>
-            </center>
-            </form>
-        </div>
         
-        <center>
-            <div class="controls">
-                <button id="fullscreenButton"><i class="fas fa-expand"></i></button>
-                <button><i class="fas fa-comment-alt"></i></button>
-            </div>
-        </center>
-
-    
+        
+        
     </div><div class="team1">
 
         <button onclick="addsoldier(1)">Add</button>
-
+        
     </div><div class="team2">
-
+        
         <button onclick="addsoldier(2)">Add</button>
-
+        
     </div><div class="team3">
-
+        
         <button onclick="addsoldier(3)">Add</button>
-
-    </div><script src="/socket.io/socket.io.js"></script><script src="client.js"></script>
+        
+    </div>
+    <div class="playerblocker">
+        <div class="playerCount"></div>
+    </div>
+    <div id="chat-controller" class="hidden">
+        <div id="chat-container">
+            <ul id="messages"></ul>
+        </div>
+        <!-- <button id="close_c" class="close"><i class="fas fa-times"></i></button> -->
+        <center>
+        <form id="form">
+            <input id="input" autocomplete="off" placeholder="Message">
+        </form>
+    </center>
+    </div>
+    <center>
+        <div class="controls">
+            <button id="fullscreenButton"><i class="fas fa-expand"></i></button>
+            <button onclick="toggle_show_hide('#chat-controller')"><i class="fas fa-comment-alt"></i></button>
+        </div>
+    </center>
+    <script>
+function toggle_show_hide(element) {
+    var targetElement = document.querySelector(element);
+    if (targetElement) {
+        targetElement.classList.toggle("hidden");
+    } else {
+        alert("Element not found:", element);
+    }
+}
+    </script>
+    <script src="/socket.io/socket.io.js"></script><script src="client.js"></script>
 </body>
 </html>
