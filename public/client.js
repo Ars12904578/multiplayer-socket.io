@@ -36,32 +36,91 @@ pos3 = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
 pos4 = e.type === 'mousemove' ? e.clientY : e.touches[0].clientY;
 element.style.top = (element.offsetTop - pos2) + "px";
 element.style.left = (element.offsetLeft - pos1) + "px";
-socket.emit('position', { id: element.id, x: element.offsetLeft, y: element.offsetTop });
+if (element.id == "summons1" || element.id == "summons2" || element.id == "summons3"){}
+else{socket.emit('position', { id: element.id, x: element.offsetLeft, y: element.offsetTop });}
 }function closeDragElement() {document.removeEventListener('mouseup', closeDragElement);
 document.removeEventListener('mousemove', elementDrag);
 document.removeEventListener('touchend', closeDragElement);
 document.removeEventListener('touchmove', elementDrag);}}
 
 
+// var soldier_counter = {};
+
+// function counter(type, team, action) {
+// if (action === 'add') {
+// type[team] = (type[team] || 0) + 1;
+// } else if (action === 'minus') {
+// type[team] = (type[team] || 0) - 1;
+// if (type[team] < 0) {type[team] = 0;
+// }}else if (action === 'null'){return type[team];}
+// return type[team];
+// };
+function summon(team){
+        
+    // if (!soldier_counter.hasOwnProperty(team)) {
+    // counter(soldier_counter, team, 'null');}
+
+;document.querySelector("#summon").innerHTML = `<div id="summons${team}">
+
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled7.png')">
+    Capital
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled6.png')">
+    City
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled8.png')">
+    Town
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled.png')">
+    Soldier
+    </button>
+    <br />
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled1.png')">
+    Car
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled3.png')">
+    Tank
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled2.png')">
+    Air
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Untitled5.png')">
+    Factory
+    </button>
+    <br />
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Road.png')">
+    Road
+    </button>
+</div>`;
+
+makeDraggable(document.querySelector(`#summons${team}`));}
 // ----
-function addSoldierElement(id, x, y, team) {const newElement = document.createElement('img');newElement.id = id;newElement.classList.add(`draggable${team}`);
-    newElement.src = "/Textures/Untitled.png"
-    // newElement.style.left = x + 'px';newElement.style.top = y + 'px';
-    if (team == 3){
-        newElement.style.right = x + 'px';newElement.style.bottom = y + 'px';
-    }if (team == 2){
-        newElement.style.right = x + 'px';newElement.style.top = y + 'px';
-    }if (team == 1){
-        newElement.style.left = x + 'px';newElement.style.top = y + 'px';
-    }
-    document.body.appendChild(newElement);makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{newElement.remove();socket.emit('removeElement', newElement.id);});let touchTimer;newElement.addEventListener('touchstart', function(event) {touchTimer = setTimeout(function() {newElement.remove();socket.emit('removeElement', newElement.id);console.log('Long press');}, 500);});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});
+// document.body.addEventListener('click', (event) => {const target = event.target;
+// if (target.classList.contains('b-1') || target.classList.contains('b-2') || target.classList.contains('b-3')) {const team = parseInt(target.classList[0].replace('b-', ''));
+// }});
+
+function addElement(id, x, y, team, src) {
+    const newElement = document.createElement('img');newElement.id = id;newElement.classList.add(`draggable${team}`);if (team == 3){newElement.style.right = x + 'px';newElement.style.bottom = y + 'px';}if (team == 2){newElement.style.right = x + 'px';newElement.style.top = y + 'px';}if (team == 1){newElement.style.left = x + 'px';newElement.style.top = y + 'px';}
+newElement.src = src;document.body.appendChild(newElement);makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{
+// counter(soldier_counter, team, "minus");
+// document.querySelector(`.soldier${team}`).innerHTML = `Soldier: ${soldier_counter[team]}`;
+newElement.remove();socket.emit('removeElement', newElement.id);});let touchTimer;newElement.addEventListener('touchstart', function(event) {touchTimer = setTimeout(function() {
+newElement.remove();socket.emit('removeElement', newElement.id);console.log('Long press');}, 500);});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});
+};function add_d_elem(team, src) {const id = Date.now().toString(), x = 0, y = 0;
+
+    // counter(soldier_counter, team, "add");
+    // document.querySelector(`.soldier${team}`).innerHTML = `Soldier: ${soldier_counter[team]}`;
+    addElement(id, x, y, team, src);
+    socket.emit('newElement', { id, x, y, team, src });
+
 };
-function addsoldier(Team) {const id = Date.now().toString(), x = 0, y = 0;
-    addSoldierElement(id, x, y, Team)
-    socket.emit('newElement', { id, x, y, Team });
-}
+
+
 socket.on('newElement', function(data) {const existingElement = document.getElementById(data.id);if(existingElement){}else{
-addSoldierElement(data.id, data.x, data.y, data.Team);}});
+    
+    addElement(data.id, data.x, data.y, data.team, data.src);
+
+}});
 // ----
 
 

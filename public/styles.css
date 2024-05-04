@@ -94,7 +94,7 @@ button:hover{
 }
 
 .draggable1 {
-    width: 30px;
+    width: auto;
     height: 30px;
     border: 5px solid red;
     border-radius: 5px;
@@ -103,7 +103,7 @@ button:hover{
     transition: none;
 }
 .draggable2 {
-    width: 30px;
+    width: auto;
     height: 30px;
     border: 5px solid #007bff;
     border-radius: 5px;
@@ -112,7 +112,7 @@ button:hover{
     transition: none;
 }
 .draggable3 {
-    width: 30px;
+    width: auto;
     height: 30px;
     border: 5px solid rgb(0, 0, 0);
     border-radius: 5px;
@@ -184,6 +184,56 @@ button:hover{
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+#summons1, #summons2, #summons3{
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+    border-top: 18px solid #007bff;
+    transition: none;
+    width: fit-content;
+    height: fit-content;
+    z-index: 999;
+}
+#summons1{
+    top: 0;
+    left: 0;
+    border-top: 18px solid red;
+}
+#summons2{
+    top: 0;
+    right: 0;
+    border-top: 18px solid #007bff;
+}
+#summons3{
+    bottom: 0;
+    right: 0;
+    border-top: 18px solid black;
+}
+.b-1, .b-2, .b-3{
+    color: white;
+}
+.b-1{
+    background-color: red;
+}
+.b-2{
+    background-color: #007bff;
+}
+.b-3{
+    background-color: black;
+}
+.b-1:hover{
+    background-color: red;
+}
+.b-2:hover{
+    background-color: #007bff;
+}
+.b-3:hover{
+    background-color: black;
+}
 .hidden {
     display: none;
+}
+#summon button{
+    margin-top: 2px;
 }
