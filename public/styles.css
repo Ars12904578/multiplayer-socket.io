@@ -14,7 +14,11 @@ body{
   background-size: cover;
   background-position: center;
 }
-
+.chat_latest{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
 button{
     padding: 4px 8px;
     border-radius: 4px;
@@ -46,16 +50,6 @@ button:hover{
     width: 100%;
     height: 100%;
 }
-.close{
-    position: fixed;
-    top: 3px;
-    left: 3px;
-    opacity: 1;
-}
-.close:hover{
-    background-color: red;
-    opacity: 1;
-}
 #messages {
     list-style-type: none;
     margin: 0;
@@ -64,7 +58,6 @@ button:hover{
     height: fit-content;
     margin-bottom: 40px;
 }
-
 #messages li {
     padding:  5px 10px;
     margin: 10px 0;
@@ -128,12 +121,18 @@ button:hover{
     bottom: 0;
     background-color: black;
     opacity: 0.8;
-    display: none;
 }
 .playerCount{
     color: white;
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.playerblocker .f_f{
+    color: white;
+    position: absolute;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

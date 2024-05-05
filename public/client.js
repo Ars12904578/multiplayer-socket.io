@@ -14,6 +14,7 @@ event.preventDefault();if (input.value) {
 var messagetosent = `${username}:  ${input.value}`
 socket.emit('message', messagetosent);input.value = '';}});
 socket.on('message', function(data) {
+document.querySelector('.chat_latest').textContent = `Chat [${data}]`
 const item = document.createElement('li');
 item.textContent = data;messages.appendChild(item);
 window.scrollTo(0, document.body.scrollHeight);});
@@ -91,37 +92,43 @@ function summon(team){
     <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Road.png')">
     Road
     </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Road.png')">
+    Road x2
+    </button>
+    <button class="b-${team}" onclick="add_d_elem(${team}, 'Textures/Road.png')">
+    Road x3
+    </button>
 </div>`;
 
 makeDraggable(document.querySelector(`#summons${team}`));}
-// ----
-// document.body.addEventListener('click', (event) => {const target = event.target;
-// if (target.classList.contains('b-1') || target.classList.contains('b-2') || target.classList.contains('b-3')) {const team = parseInt(target.classList[0].replace('b-', ''));
-// }});
-
-function addElement(id, x, y, team, src) {
-    const newElement = document.createElement('img');newElement.id = id;newElement.classList.add(`draggable${team}`);if (team == 3){newElement.style.right = x + 'px';newElement.style.bottom = y + 'px';}if (team == 2){newElement.style.right = x + 'px';newElement.style.top = y + 'px';}if (team == 1){newElement.style.left = x + 'px';newElement.style.top = y + 'px';}
+function addElement(id, x, y, team, src) {const newElement = document.createElement('img');newElement.id = id;newElement.classList.add(`draggable${team}`);if (team == 3){newElement.style.right = x + 'px';newElement.style.bottom = y + 'px';}if (team == 2){newElement.style.right = x + 'px';newElement.style.top = y + 'px';}if (team == 1){newElement.style.left = x + 'px';newElement.style.top = y + 'px';}
 newElement.src = src;document.body.appendChild(newElement);makeDraggable(newElement);newElement.addEventListener('dblclick', () =>{
-// counter(soldier_counter, team, "minus");
-// document.querySelector(`.soldier${team}`).innerHTML = `Soldier: ${soldier_counter[team]}`;
 newElement.remove();socket.emit('removeElement', newElement.id);});let touchTimer;newElement.addEventListener('touchstart', function(event) {touchTimer = setTimeout(function() {
 newElement.remove();socket.emit('removeElement', newElement.id);console.log('Long press');}, 500);});newElement.addEventListener('touchmove', function(event) {clearTimeout(touchTimer);});newElement.addEventListener('touchend', function(event) {clearTimeout(touchTimer);});
 };function add_d_elem(team, src) {const id = Date.now().toString(), x = 0, y = 0;
-
-    // counter(soldier_counter, team, "add");
-    // document.querySelector(`.soldier${team}`).innerHTML = `Soldier: ${soldier_counter[team]}`;
     addElement(id, x, y, team, src);
     socket.emit('newElement', { id, x, y, team, src });
-
 };
-
-
 socket.on('newElement', function(data) {const existingElement = document.getElementById(data.id);if(existingElement){}else{
-    
     addElement(data.id, data.x, data.y, data.team, data.src);
-
 }});
 // ----
+
+function detectOrientation() {
+    if (!document.fullscreenElement) {
+        document.querySelector('.playerblocker').classList.remove('hidden');
+    } else if (document.fullscreenElement) {
+        document.querySelector('.playerblocker').classList.add('hidden');
+    }
+}
+
+window.addEventListener("orientationchange", detectOrientation);
+window.addEventListener("resize", detectOrientation);
+window.addEventListener("DOMContentLoaded", detectOrientation);
+detectOrientation();
+window.addEventListener("touchstart", detectOrientation);
+window.addEventListener("touchend", detectOrientation);
+window.addEventListener("touchmove", detectOrientation);
 
 
 socket.on('playersCount', function(data){document.querySelector(".playerCount").innerHTML = "Player Count "+data});
